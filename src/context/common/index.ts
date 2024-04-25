@@ -39,9 +39,9 @@ export function commonReducer(
     }
 
     default: {
-      const _: never = action;
+      const _unreachable: never = action;
       const message = "Unreachable action type";
-      console.warn({ message, _ });
+      console.warn({ message, _unreachable });
       throw AppError.new(AppErrorKind.ContextError, message);
     }
   }
