@@ -1,29 +1,13 @@
 import { Providers } from "@/components/core";
-import { commonAction } from "./context/common";
-import { useStore } from "./hooks";
-
-function Test() {
-  const { state: { common }, dispatch } = useStore();
-
-  return (
-    <>
-      <h1>{common.theme}</h1>
-      <button
-        onClick={() =>
-          dispatch(commonAction({
-            type: "TOGGLE_THEME",
-          }))}
-      >
-        Toggle theme
-      </button>
-    </>
-  );
-}
+import { RouterProvider } from "react-router-dom";
+import routes from "./pages/router";
 
 function App() {
   return (
     <Providers>
-      <Test />
+      <RouterProvider router={routes} />
+      {/* ToastProvider */}
+      {/* BackdropProvider */}
     </Providers>
   );
 }
