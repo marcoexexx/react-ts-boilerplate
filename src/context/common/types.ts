@@ -15,15 +15,15 @@ interface CommonStore {
 }
 
 interface ThemeAction {
-  type: "TOGGLE_THEME";
+  type: ActionType<"@@COMMON", "TOGGLE_THEME">;
 }
 
 interface ToastCloseAction {
-  type: "CLOSE_TOAST";
+  type: ActionType<"@@COMMON", "CLOSE_TOAST">;
 }
 
 interface ToastOpenAction {
-  type: "OPEN_TOAST";
+  type: ActionType<"@@COMMON", "OPEN_TOAST">;
   payload: Omit<Toast, "status">;
 }
 

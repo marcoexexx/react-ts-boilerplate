@@ -18,17 +18,17 @@ interface TodoStore {
 }
 
 interface TodoFilterAction {
-  type: "SET_TODO_FILTER";
+  type: ActionType<"@@TODO", "SET_TODO_FILTER">;
   payload: TodoFilterInput;
 }
 
 interface TodoPageAction {
-  type: "SET_TODO_PAGE";
+  type: ActionType<"@@TODO", "SET_TODO_PAGE">;
   payload: number;
 }
 
 interface TodoPageSizeAction {
-  type: "SET_TODO_PAGE_SIZE";
+  type: ActionType<"@@TODO", "SET_TODO_PAGE_SIZE">;
   payload: number;
 }
 

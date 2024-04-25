@@ -5,7 +5,7 @@ export const AppErrorKind = {
   UnknownError: "UnknownError",
   MaintenanceError: "MaintenanceError",
   BlockedError: "BlockedError",
-  ServiceError: "ServiceError"
+  ServiceError: "ServiceError",
 } as const;
 export type AppErrorKind = typeof AppErrorKind[keyof typeof AppErrorKind];
 

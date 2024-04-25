@@ -7,9 +7,9 @@ export const ListTodo = () => {
   const handleAdd = () => {
     mutate({
       title: "new todo",
-      isCompleted: false
-    })
-  }
+      isCompleted: false,
+    });
+  };
 
   return (
     <div>
@@ -18,5 +18,3 @@ export const ListTodo = () => {
     </div>
   );
 };
-
-

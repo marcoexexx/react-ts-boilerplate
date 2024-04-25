@@ -1,9 +1,5 @@
 import { INITIAL_PAGINATION } from "@/services";
 import AppError, { AppErrorKind } from "@/utils/exception";
-import { createAction } from "..";
-
-export const todoAction = (action: TodoAction) =>
-  createAction("todo", action);
 
 export const initialTodoStore: TodoStore = {
   filter: {
@@ -17,7 +13,7 @@ export function todoReducer(
   action: TodoAction,
 ): TodoStore {
   switch (action.type) {
-    case "SET_TODO_PAGE": {
+    case "@@TODO/SET_TODO_PAGE": {
       return {
         ...store,
         filter: {
@@ -30,7 +26,7 @@ export function todoReducer(
         },
       };
     }
-    case "SET_TODO_PAGE_SIZE": {
+    case "@@TODO/SET_TODO_PAGE_SIZE": {
       return {
         ...store,
         filter: {
@@ -43,7 +39,7 @@ export function todoReducer(
         },
       };
     }
-    case "SET_TODO_FILTER": {
+    case "@@TODO/SET_TODO_FILTER": {
       return {
         ...store,
         filter: action.payload,

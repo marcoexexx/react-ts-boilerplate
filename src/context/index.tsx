@@ -2,26 +2,27 @@ import { createContext, useReducer } from "react";
 import { commonReducer, initialCommonStore } from "./common";
 import { initialTodoStore, todoReducer } from "./todo";
 
-export type Store = {
-  common: CommonStore;
-  todo: TodoStore;
-};
-export type Action = {
-  common: CommonAction;
-  todo: TodoAction;
-};
-
-export type ActionKey = keyof Action;
-
 const initialStore: Store = {
   common: initialCommonStore,
   todo: initialTodoStore,
+  // more stores
 };
 
 function storeReducer(store: Store, action: Action): Store {
+  const common = action.type.startsWith("@@COMMON" as ActionScope)
+    ? commonReducer(store.common, action as CommonAction)
+    : store.common;
+
+  const todo = action.type.startsWith("@@TODO" as ActionScope)
+    ? todoReducer(store.todo, action as TodoAction)
+    : store.todo;
+
+  // more reducer scopes
+
   return {
-    common: commonReducer(store.common, action.common),
-    todo: todoReducer(store.todo, action.todo),
+    common,
+    todo,
+    // more stores
   };
 }
 
@@ -30,13 +31,6 @@ type Dispatch = (action: Action) => void;
 export const StoreContext = createContext<
   { state: Store; dispatch: Dispatch } | undefined
 >(undefined);
-
-export function createAction(
-  key: `${ActionKey}`,
-  dispatch: Action[ActionKey],
-) {
-  return { [key]: dispatch };
-}
 
 interface StoreProviderProps {
   children: React.ReactNode;
