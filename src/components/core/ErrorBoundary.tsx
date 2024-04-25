@@ -41,6 +41,15 @@ export class ErrorBoundary
           case AppErrorKind.UnknownError:
             return <h1>UnknownError</h1>;
 
+          case AppErrorKind.MaintenanceError:
+            return <h1>MaintenanceError</h1>;
+
+          case AppErrorKind.BlockedError:
+            return <h1>BlockedError</h1>;
+
+          case AppErrorKind.ServiceError:
+            return <h1>ServiceError</h1>;
+
           default: {
             const _unreachable: never = err.kind;
             console.error({ _unreachable });

@@ -13,6 +13,7 @@ const routes = createBrowserRouter([
   {
     path: "",
     Component: OtherLayout,
+    ErrorBoundary: ErrorBoundaryRouter,
     children: [
       {
         path: "",

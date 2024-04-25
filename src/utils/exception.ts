@@ -3,6 +3,9 @@ export const AppErrorKind = {
   NetworkError: "NetworkError",
   ContextError: "ContextError",
   UnknownError: "UnknownError",
+  MaintenanceError: "MaintenanceError",
+  BlockedError: "BlockedError",
+  ServiceError: "ServiceError"
 } as const;
 export type AppErrorKind = typeof AppErrorKind[keyof typeof AppErrorKind];
 
