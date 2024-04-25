@@ -1,3 +1,4 @@
+import { ErrorBoundary } from "@/components/core";
 import { StoreProvider } from "@/context";
 import ThemeWrapper from "@/themes/themeWrapper";
 import { Duration } from "@/utils";
@@ -27,11 +28,12 @@ export function Providers(props: ProvidersProps) {
       <StoreProvider>
         {/* HelmetProvider */}
         <QueryClientProvider client={queryClient}>
-          {/* ErrorBoundary */}
-          {/* AuthProvider */}
-          <ThemeWrapper>
-            {children}
-          </ThemeWrapper>
+          <ErrorBoundary>
+            {/* AuthProvider */}
+            <ThemeWrapper>
+              {children}
+            </ThemeWrapper>
+          </ErrorBoundary>
         </QueryClientProvider>
       </StoreProvider>
     </LocalizationProvider>
