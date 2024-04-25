@@ -1,6 +1,10 @@
 import { LOCAL_STORE_THEME_KEY } from "@/themes";
 import { getLocalStore, setLocalStore } from "@/utils";
 import AppError, { AppErrorKind } from "@/utils/exception";
+import { createAction } from "..";
+
+export const commonAction = (action: CommonAction) =>
+  createAction("common", action);
 
 export const initialCommonStore: CommonStore = {
   theme: getLocalStore(LOCAL_STORE_THEME_KEY) || "light",

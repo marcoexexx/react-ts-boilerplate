@@ -8,6 +8,8 @@ export type Action = {
   common: CommonAction;
 };
 
+export type ActionKey = keyof Action;
+
 const initialStore: Store = {
   common: initialCommonStore,
 };
@@ -24,6 +26,13 @@ export const StoreContext = createContext<
   { state: Store; dispatch: Dispatch } | undefined
 >(undefined);
 
+export function createAction(
+  key: `${ActionKey}`,
+  dispatch: Action[ActionKey],
+) {
+  return { [key]: dispatch };
+}
+
 interface StoreProviderProps {
   children: React.ReactNode;
 }
@@ -33,12 +42,6 @@ export function StoreProvider(props: StoreProviderProps) {
   const [state, dispatch] = useReducer(storeReducer, initialStore);
 
   const value = { state, dispatch };
-
-  type Key = keyof typeof initialStore;
-  const createAction = (key: `${Key}`, dispatch: Action[Key]) => ({
-    [key]: dispatch,
-  });
-  dispatch(createAction("common", { type: "CLOSE_TOAST" }));
 
   return (
     <StoreContext.Provider value={value}>
