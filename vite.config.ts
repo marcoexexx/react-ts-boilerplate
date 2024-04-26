@@ -8,7 +8,9 @@ export default defineConfig({
 
   // @ts-ignore  for testing
   test: {
-    environment: "jsdom",
+    environment: "happy-dom",
+    global: true,
+    setupFiles: "./test-setup.js"
   },
 
   resolve: {

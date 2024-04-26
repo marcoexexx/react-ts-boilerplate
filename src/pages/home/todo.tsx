@@ -13,7 +13,7 @@ export const ListTodo = () => {
 
   return (
     <div>
-      {data?.results.map(todo => <p key={todo.id}>{todo.title}</p>)}
+      {data?.results.map(todo => <p key={todo.id}>{todo.id}. {todo.title}</p>)}
       <button onClick={handleAdd}>Add new</button>
     </div>
   );
