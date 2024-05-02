@@ -1,4 +1,6 @@
+import { EnhancedButton, EnhancedText } from "@/components/common";
 import { useCreateTodo, useGetTodos } from "@/hooks/todo";
+import { Box } from "@mui/material";
 
 export const ListTodo = () => {
   const { data } = useGetTodos({});
@@ -12,9 +14,13 @@ export const ListTodo = () => {
   };
 
   return (
-    <div>
-      {data?.results.map(todo => <p key={todo.id}>{todo.id}. {todo.title}</p>)}
-      <button onClick={handleAdd}>Add new</button>
-    </div>
+    <Box>
+      {data?.results.map(todo => (
+        <EnhancedText key={todo.id}>
+          [ {todo.id} ]. {todo.title}
+        </EnhancedText>
+      ))}
+      <EnhancedButton onClick={handleAdd}>Add new</EnhancedButton>
+    </Box>
   );
 };
