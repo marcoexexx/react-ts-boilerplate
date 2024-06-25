@@ -7,19 +7,22 @@ export abstract class BaseService<
 > {
   public abstract repo: ResourceKey;
 
-  findMany(opt: QueryOptionArgs, filter: {
+  /// TODO: impletemt api fetch
+  async findMany(opt: QueryOptionArgs, filter: {
     where?: Filter["where"];
     pagination: Filter["pagination"];
     include?: Filter["include"];
   }): Promise<HttpListResponse<Return>> {
-    console.log({ opt, filter });
+    let { Db } = await import("./_devDb");
 
-    return Promise.reject(
-      AppError.new(
-        AppErrorKind.ServiceError,
-        `Unimplemented feature call ${this.repo}::findMany`,
-      ),
-    );
+    let res: HttpListResponse<Return> = {
+      count: Db[this.repo].length,
+      error: undefined,
+      status: 200,
+      results: Db.todos,
+    };
+
+    return res;
   }
 
   find(opt: QueryOptionArgs, filter: {
@@ -47,15 +50,19 @@ export abstract class BaseService<
     );
   }
 
-  create(payload: CreatePayload<Return>): Promise<Return> {
-    console.log({ payload });
+  /// TODO: impletemt api fetch, Response return!!
+  async create(payload: CreatePayload<Return>): Promise<Return> {
+    let { Db } = await import("./_devDb");
 
-    return Promise.reject(
-      AppError.new(
-        AppErrorKind.ServiceError,
-        `Unimplemented feature call ${this.repo}::create`,
-      ),
-    );
+    let newEntity: BasePayload = {
+      ...payload,
+      id: `${Db[this.repo].length + 1}`,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    Db[this.repo].push(newEntity);
+
+    return newEntity as Return;
   }
 
   update(arg: {
