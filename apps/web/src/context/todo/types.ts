@@ -22,6 +22,7 @@ interface TodoFilterAction {
   payload: TodoFilterInput;
 }
 
+/// TODO: pagination generic
 interface TodoPageAction {
   type: ActionType<"@@TODO", "SET_TODO_PAGE">;
   payload: number;

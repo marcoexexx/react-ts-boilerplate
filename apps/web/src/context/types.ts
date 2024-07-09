@@ -1,11 +1,8 @@
-type Store = {
-  common: CommonStore;
-  todo: TodoStore;
-};
 type Action =
+  | LocaleAction
   | CommonAction
   | TodoAction;
 
-type ActionScope = Uppercase<`@@${keyof Store}`>;
+type ActionScope = Uppercase<`@@${keyof import("./index.tsx").Store}`>;
 
 type ActionType<Key extends ActionScope, T extends string> = `${Key}/${T}`;

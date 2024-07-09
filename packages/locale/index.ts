@@ -1,5 +1,5 @@
 import _get from "lodash/get";
-import en, { Translations } from "./en";
+import en, { Translations } from "./lang/en";
 import { strTemplate } from "./str_template";
 
 const LOCAL_STORE_LANGUAGE_KEY = "language";

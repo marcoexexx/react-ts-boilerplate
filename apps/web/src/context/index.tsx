@@ -1,14 +1,23 @@
 import { createContext, useReducer } from "react";
 import { commonReducer, initialCommonStore } from "./common";
+import { initialLocaleStore, localeReducer } from "./locale";
 import { initialTodoStore, todoReducer } from "./todo";
 
-const initialStore: Store = {
+const initialStore = {
+  // -- Settings
+  locale: initialLocaleStore,
+
   common: initialCommonStore,
   todo: initialTodoStore,
   // more stores
 };
+export type Store = typeof initialStore;
 
 function storeReducer(store: Store, action: Action): Store {
+  const locale = action.type.startsWith("@@LOCALE" as ActionScope)
+    ? localeReducer(store.locale, action as LocaleAction)
+    : store.locale;
+
   const common = action.type.startsWith("@@COMMON" as ActionScope)
     ? commonReducer(store.common, action as CommonAction)
     : store.common;
@@ -20,6 +29,7 @@ function storeReducer(store: Store, action: Action): Store {
   // more reducer scopes
 
   return {
+    locale,
     common,
     todo,
     // more stores
