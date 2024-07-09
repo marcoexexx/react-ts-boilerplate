@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "web:dev": "pnpm --filter web run dev",
+    "web:build": "pnpm --filter web run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
