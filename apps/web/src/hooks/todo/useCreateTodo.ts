@@ -3,18 +3,11 @@ import { ResourceKey } from "@/services/resourceKey";
 import { TodoService } from "@/services/todo.service";
 import { AppError, AppErrorKind, Result } from "@error";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import { Err, Ok } from "result";
-import { useStore } from "..";
 
 const apiService = TodoService.new();
 
 export function useCreateTodo() {
-  const { dispatch } = useStore();
-
-  const navigate = useNavigate();
-  const from = `/${ResourceKey.Todo}`;
-
   const mutation = useMutation({
     mutationFn: (...args: Parameters<typeof apiService.create>) =>
       apiService.create(...args),

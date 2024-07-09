@@ -8,12 +8,18 @@ export abstract class BaseService<
   public abstract repo: ResourceKey;
 
   /// TODO: impletemt api fetch
-  async findMany(opt: QueryOptionArgs, filter: {
-    where?: Filter["where"];
-    pagination: Filter["pagination"];
-    include?: Filter["include"];
-  }): Promise<HttpListResponse<Return>> {
+  async findMany(
+    opt: QueryOptionArgs,
+    { filter, pagination, include }: Filter,
+  ): Promise<HttpListResponse<Return>> {
     let { Db } = await import("./_devDb");
+
+    console.log(`${this.repo}.findMany`, {
+      opt,
+      filter,
+      pagination,
+      include,
+    });
 
     let res: HttpListResponse<Return> = {
       count: Db[this.repo].length,
@@ -25,7 +31,7 @@ export abstract class BaseService<
     return res;
   }
 
-  find(opt: QueryOptionArgs, filter: {
+  async find(opt: QueryOptionArgs, filter: {
     where: { id: string };
     include?: Filter["include"];
   }): Promise<Return> {
@@ -39,7 +45,7 @@ export abstract class BaseService<
     );
   }
 
-  uploadExcel(buf: ArrayBuffer): Promise<HttpResponse> {
+  async uploadExcel(buf: ArrayBuffer): Promise<HttpResponse> {
     console.log({ buf });
 
     return Promise.reject(
@@ -65,7 +71,7 @@ export abstract class BaseService<
     return newEntity as Return;
   }
 
-  update(arg: {
+  async update(arg: {
     id: string;
     payload: UpdatePayload<Return>;
   }): Promise<Return> {
@@ -79,7 +85,7 @@ export abstract class BaseService<
     );
   }
 
-  deleteMany(ids: string[]): Promise<HttpResponse> {
+  async deleteMany(ids: string[]): Promise<HttpResponse> {
     console.log({ ids });
 
     return Promise.reject(
@@ -90,7 +96,7 @@ export abstract class BaseService<
     );
   }
 
-  delete(id: string): Promise<Return> {
+  async delete(id: string): Promise<Return> {
     console.log({ id });
 
     return Promise.reject(

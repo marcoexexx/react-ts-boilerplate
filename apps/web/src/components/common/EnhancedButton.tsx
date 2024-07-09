@@ -1,6 +1,6 @@
 import { LoadingButton, LoadingButtonProps } from "@mui/lab";
 import { styled } from "@mui/material";
-import { LocaleOptions, localization, TxPath } from "locale";
+import { LocaleOptions, translate, TxPath } from "locale";
 import { forwardRef } from "react";
 
 const MuiButtonWrapper = styled(LoadingButton)(() => ({}));
@@ -17,7 +17,7 @@ export const EnhancedButton = forwardRef<
 >(
   (props, ref) => {
     const { children, tx, txOption, text, ...reset } = props;
-    const content = tx ? localization.t(tx, txOption) : text;
+    const content = tx ? translate(tx, txOption) : text;
 
     return (
       <MuiButtonWrapper {...reset} ref={ref}>

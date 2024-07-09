@@ -1,5 +1,5 @@
 import { styled, Typography, TypographyProps } from "@mui/material";
-import { LocaleOptions, localization, TxPath } from "locale";
+import { LocaleOptions, translate, TxPath } from "locale";
 import { forwardRef } from "react";
 
 const TypographyWrapper = styled(Typography)(({}) => ({}));
@@ -16,7 +16,7 @@ export const EnhancedText = forwardRef<
 >(
   (props, ref) => {
     const { children, tx, txOption, text, ...reset } = props;
-    const content = tx ? localization.t(tx, txOption) : text;
+    const content = tx ? translate(tx, txOption) : text;
 
     return (
       <TypographyWrapper {...reset} ref={ref}>

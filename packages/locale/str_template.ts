@@ -1,4 +1,4 @@
-import { LocaleOptions } from "./locale";
+import { LocaleOptions } from "./index";
 
 export function strTemplate(str: string, context: LocaleOptions) {
   for (const key in context) {

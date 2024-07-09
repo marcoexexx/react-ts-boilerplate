@@ -1,5 +1,3 @@
-import { ToString } from ".";
-
 class UnwrapException extends Error {
   constructor(msg: string) {
     super(msg);

@@ -1,4 +1,4 @@
-import { Result } from "..";
+import { Result } from "../index";
 
 export const tryJSONParse = Result.try(JSON.parse);
 export const tryJSONStringify = Result.try(JSON.stringify);
