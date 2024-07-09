@@ -3,8 +3,10 @@ import { useCreateTodo, useGetTodos } from "@/hooks/todo";
 import { Box } from "@mui/material";
 
 export const ListTodo = () => {
-  const { data } = useGetTodos({});
+  const { try_data } = useGetTodos({});
   const { mutate } = useCreateTodo();
+
+  const todo_list = try_data.ok_or_throw();
 
   const handleAdd = () => {
     mutate({
@@ -15,7 +17,7 @@ export const ListTodo = () => {
 
   return (
     <Box>
-      {data?.results.map(todo => (
+      {todo_list?.results.map(todo => (
         <EnhancedText key={todo.id}>
           [ {todo.id} ]. {todo.title}
         </EnhancedText>
