@@ -1,6 +1,5 @@
 import { queryClient } from "@/components/core";
-import { ResourceKey } from "@/services/resourceKey";
-import { TodoService } from "@/services/todo.service";
+import { ResourceKey, TodoService } from "@/services";
 import { AppError, AppErrorKind, Result } from "@error";
 import { useMutation } from "@tanstack/react-query";
 import { Err, Ok } from "result";

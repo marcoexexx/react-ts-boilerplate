@@ -1,22 +1,22 @@
 import {
   CacheResourcePageKey,
+  PermissionService,
   ResourceKey,
-  TodoService,
 } from "@/services";
 import { AppError, AppErrorKind, Result } from "@error";
 import { Err, Ok } from "result";
 
 import { useQuery } from "@tanstack/react-query";
 
-const apiService = TodoService.new();
+const apiService = PermissionService.new();
 
-export function useGetTodos(filter: TodoFilterInput) {
+export function useGetPermissions(filter: PermissionFilterInput) {
   const query = useQuery({
-    queryKey: [ResourceKey.Todo, filter] as CacheResourcePageKey<
-      "todos",
-      TodoFilterInput
+    queryKey: [ResourceKey.Permission, filter] as CacheResourcePageKey<
+      "permissions",
+      PermissionFilterInput
     >["list"],
-    queryFn: args => apiService.findMany(args, filter),
+    queryFn: () => apiService.getUserPermission(),
     select: data => data,
   });
 

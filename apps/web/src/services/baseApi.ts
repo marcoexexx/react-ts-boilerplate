@@ -26,32 +26,13 @@ baseApi.interceptors.response.use(
       );
     }
 
-    const message = res.data.message as string;
+    const type = res.data.type as string;
 
-    if (
-      (message.includes("not logged in")
-        || message.includes("session has expired")) && !orgReq._retry
-    ) {
-      orgReq._retry = true;
+    if (type === "NO_AUTH" && !orgReq._retry) {
       orgReq._retry = true;
       // generate refreshAccessToken
+      // document.location.href = "/auth/signin"  // For development.;
       return baseApi(orgReq);
-    }
-
-    if (message.includes("not refresh")) {
-      document.location.href = "/auth/login";
-    }
-
-    if (message.includes("under maintenance")) {
-      return Promise.reject(
-        AppError.new(AppErrorKind.MaintenanceError, message),
-      );
-    }
-
-    if (message.includes("You are blocked")) {
-      return Promise.reject(
-        AppError.new(AppErrorKind.BlockedError, message),
-      );
     }
 
     return Promise.reject(error);

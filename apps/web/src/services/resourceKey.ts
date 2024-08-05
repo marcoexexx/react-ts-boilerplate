@@ -1,5 +1,6 @@
 export const ResourceKey = {
   Todo: "todos",
+  Permission: "permissions",
 } as const;
 export type ResourceKey = typeof ResourceKey[keyof typeof ResourceKey];
 

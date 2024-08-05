@@ -28,7 +28,9 @@ export abstract class BaseService<
       results: Db.todos,
     };
 
-    return res;
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(res), 3 * 1000);
+    });
   }
 
   async find(opt: QueryOptionArgs, filter: {

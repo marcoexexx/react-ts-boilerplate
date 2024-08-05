@@ -18,7 +18,9 @@ export class Result<T, E extends ToString> {
     this.value = value;
   }
 
-  static try<Args extends any[], ReturnType>(fn: (...args: Args) => ReturnType) {
+  static try<Args extends any[], ReturnType>(
+    fn: (...args: Args) => ReturnType,
+  ) {
     return function(...args: Args): Result<ReturnType, Error> {
       try {
         const func = fn(...args);
@@ -29,8 +31,12 @@ export class Result<T, E extends ToString> {
     };
   }
 
-  static try_async<Args extends any[], ReturnType>(fn: (...args: Args) => Promise<ReturnType>) {
-    return async function(...args: Args): Promise<Result<ReturnType, Error>> {
+  static try_async<Args extends any[], ReturnType>(
+    fn: (...args: Args) => Promise<ReturnType>,
+  ) {
+    return async function(
+      ...args: Args
+    ): Promise<Result<ReturnType, Error>> {
       try {
         const func = await fn(...args);
         return Ok(func);
@@ -171,7 +177,10 @@ export class Result<T, E extends ToString> {
       case "ok":
         return this.value as T;
       case "err":
-        unwrap_failed("called `Result::unwrap()` on an `Err` value", this.value as E);
+        unwrap_failed(
+          "called `Result::unwrap()` on an `Err` value",
+          this.value as E,
+        );
     }
   }
 
@@ -195,7 +204,10 @@ export class Result<T, E extends ToString> {
   unwrap_err(): E {
     switch (this._type) {
       case "ok":
-        unwrap_failed("called `Result::unwrap_err()` on an `Ok` value", this.value as T);
+        unwrap_failed(
+          "called `Result::unwrap_err()` on an `Ok` value",
+          this.value as T,
+        );
       case "err":
         return this.value as E;
     }

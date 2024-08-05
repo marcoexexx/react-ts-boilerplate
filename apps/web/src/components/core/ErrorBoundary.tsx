@@ -38,9 +38,6 @@ export class ErrorBoundary
           case AppErrorKind.NetworkError:
             return <h1>NetworkError</h1>;
 
-          case AppErrorKind.UnknownError:
-            return <h1>UnknownError</h1>;
-
           case AppErrorKind.MaintenanceError:
             return <h1>MaintenanceError</h1>;
 
@@ -49,6 +46,13 @@ export class ErrorBoundary
 
           case AppErrorKind.ServiceError:
             return <h1>ServiceError</h1>;
+
+          case AppErrorKind.AccessDeniedError:
+            return <h1>AccessDeniedError Page</h1>;
+
+          // UnknownError
+          case AppErrorKind.UnknownError:
+            return <h1>UnknownError</h1>;
 
           default: {
             const _unreachable: never = err.kind;

@@ -1,6 +1,7 @@
 import { createContext, useReducer } from "react";
 import { commonReducer, initialCommonStore } from "./common";
 import { initialLocaleStore, localeReducer } from "./locale";
+import { initialPermissionStore, permissionReducer } from "./permission";
 import { initialTodoStore, todoReducer } from "./todo";
 
 const initialStore = {
@@ -9,6 +10,7 @@ const initialStore = {
 
   common: initialCommonStore,
   todo: initialTodoStore,
+  permission: initialPermissionStore,
   // more stores
 };
 export type Store = typeof initialStore;
@@ -26,12 +28,17 @@ function storeReducer(store: Store, action: Action): Store {
     ? todoReducer(store.todo, action as TodoAction)
     : store.todo;
 
+  const permission = action.type.startsWith("@@PERMISSION" as ActionScope)
+    ? permissionReducer(store.permission, action as PermissionAction)
+    : store.todo;
+
   // more reducer scopes
 
   return {
     locale,
     common,
     todo,
+    permission,
     // more stores
   };
 }

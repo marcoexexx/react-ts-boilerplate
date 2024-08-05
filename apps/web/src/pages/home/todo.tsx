@@ -1,8 +1,14 @@
 import { EnhancedButton, EnhancedText } from "@/components/common";
+import { withGuard } from "@/components/core";
 import { useCreateTodo, useGetTodos } from "@/hooks/todo";
 import { Box } from "@mui/material";
 
-export const ListTodo = () => {
+const permission: Pick<Permission, "action" | "resource"> = {
+  action: "read",
+  resource: "todos",
+};
+
+export const ListTodo = withGuard((_props) => {
   const { try_data } = useGetTodos({});
   const { mutate } = useCreateTodo();
 
@@ -25,4 +31,4 @@ export const ListTodo = () => {
       <EnhancedButton onClick={handleAdd}>Add new</EnhancedButton>
     </Box>
   );
-};
+}, permission);

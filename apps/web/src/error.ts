@@ -6,10 +6,12 @@ export const AppErrorKind = {
   ApiError: "ApiError",
   NetworkError: "NetworkError",
   ContextError: "ContextError",
-  UnknownError: "UnknownError",
   MaintenanceError: "MaintenanceError",
   BlockedError: "BlockedError",
   ServiceError: "ServiceError",
+  AccessDeniedError: "AccessDeniedError",
+
+  UnknownError: "UnknownError",
 } as const;
 export type AppErrorKind = typeof AppErrorKind[keyof typeof AppErrorKind];
 

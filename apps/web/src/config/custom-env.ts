@@ -1,3 +1,3 @@
 export const config = {
-  backendEndpoint: import.meta.env.BACKEND_ENDPOINT,
+  backendEndpoint: import.meta.env.VITE_BACKEND_ENDPOINT,
 };
