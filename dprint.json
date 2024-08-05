@@ -1,6 +1,6 @@
 {
   "typescript": {
-    "lineWidth": 75
+    "lineWidth": 100
   },
   "json": {},
   "excludes": [

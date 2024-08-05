@@ -16,21 +16,19 @@ const initialStore = {
 export type Store = typeof initialStore;
 
 function storeReducer(store: Store, action: Action): Store {
-  const locale = action.type.startsWith("@@LOCALE" as ActionScope)
-    ? localeReducer(store.locale, action as LocaleAction)
-    : store.locale;
+  const handleReducer = <T, A>(
+    scope: ActionScope,
+    currentStore: T,
+    reducer: (state: T, action: A) => T,
+  ) =>
+    action.type.startsWith(scope)
+      ? reducer(currentStore, action as A)
+      : currentStore;
 
-  const common = action.type.startsWith("@@COMMON" as ActionScope)
-    ? commonReducer(store.common, action as CommonAction)
-    : store.common;
-
-  const todo = action.type.startsWith("@@TODO" as ActionScope)
-    ? todoReducer(store.todo, action as TodoAction)
-    : store.todo;
-
-  const permission = action.type.startsWith("@@PERMISSION" as ActionScope)
-    ? permissionReducer(store.permission, action as PermissionAction)
-    : store.todo;
+  const locale = handleReducer("@@LOCALE", store.locale, localeReducer);
+  const common = handleReducer("@@COMMON", store.common, commonReducer);
+  const todo = handleReducer("@@TODO", store.todo, todoReducer);
+  const permission = handleReducer("@@PERMISSION", store.permission, permissionReducer);
 
   // more reducer scopes
 
