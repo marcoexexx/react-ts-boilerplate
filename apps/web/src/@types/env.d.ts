@@ -4,7 +4,7 @@ interface ImportMetaEnv {
     | "test"
     | "production";
 
-  BACKEND_ENDPOINT: string;
+  VITE_BACKEND_ENDPOINT: string;
 }
 
 interface ToString {
