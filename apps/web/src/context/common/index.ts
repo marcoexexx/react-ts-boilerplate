@@ -2,7 +2,7 @@ import { LOCAL_STORE_THEME_KEY } from "@/themes";
 import { getLocalStore, setLocalStore } from "@/utils";
 import { AppError, AppErrorKind } from "@error";
 
-export const initialCommonStore: CommonStore = {
+export const initialCommonStore: CommonContextStore = {
   theme: getLocalStore(LOCAL_STORE_THEME_KEY) || "light",
   toast: {
     status: false,
@@ -15,9 +15,9 @@ export const initialCommonStore: CommonStore = {
 };
 
 export function commonReducer(
-  store: CommonStore,
-  action: CommonAction,
-): CommonStore {
+  store: CommonContextStore,
+  action: CommonContextAction,
+): CommonContextStore {
   switch (action.type) {
     case "@@COMMON/TOGGLE_THEME": {
       const theme = store.theme === "light" ? "dark" : "light";

@@ -1,43 +1,47 @@
 interface Permission {
   id: string;
 
-  action:
-    | "create"
-    | "read"
-    | "update"
-    | "delete";
-  resource: import("@/services").ResourceKey;
+  action: import("./index").PermissionAction;
+  resource: import("./index").PermissionResource;
 
   createdAt: string | Date;
   updatedAt: string | Date;
 }
 
+type CheckPermissionInput = Pick<Permission, "action" | "resource">;
+
 type PermissionFilterInput = FilterPayload<Permission>;
 
 /**
- * Context
+ * Context type declaration
  */
-interface PermissionStore {
+interface PermissionContextStore {
   filter: PermissionFilterInput;
 }
 
-interface PermissionFilterAction {
-  type: ActionType<"@@PERMISSION", "SET_PERMISSION_FILTER">;
+/**
+ * Context action variants type declaration
+ */
+interface PermissionFilterContextAction {
+  type: ContextActionType<"@@PERMISSION", "SET_PERMISSION_FILTER">;
   payload: PermissionFilterInput;
 }
 
-/// PERMISSION: pagination generic
-interface PermissionPageAction {
-  type: ActionType<"@@PERMISSION", "SET_PERMISSION_PAGE">;
+/// TODO: pagination generic
+interface PermissionPageContextAction {
+  type: ContextActionType<"@@PERMISSION", "SET_PERMISSION_PAGE">;
   payload: number;
 }
 
-interface PermissionPageSizeAction {
-  type: ActionType<"@@PERMISSION", "SET_PERMISSION_PAGE_SIZE">;
+interface PermissionPageSizeContextAction {
+  type: ContextActionType<"@@PERMISSION", "SET_PERMISSION_PAGE_SIZE">;
   payload: number;
 }
 
-type PermissionAction =
-  | PermissionFilterAction
-  | PermissionPageAction
-  | PermissionPageSizeAction;
+/**
+ * Main context action
+ */
+type PermissionContextAction =
+  | PermissionFilterContextAction
+  | PermissionPageContextAction
+  | PermissionPageSizeContextAction;

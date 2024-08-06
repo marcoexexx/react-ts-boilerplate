@@ -5,8 +5,8 @@ export const initialLocaleStore: Locale = localization.locale;
 
 export function localeReducer(
   locale: Locale,
-  action: LocaleAction,
-): LocaleStore {
+  action: LocaleContextAction,
+): LocaleContextStore {
   switch (action.type) {
     case "@@LOCALE/SET_LOCALE": {
       return locale;

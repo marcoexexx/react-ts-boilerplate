@@ -9,25 +9,34 @@ interface Toast {
     | "info";
 }
 
-interface CommonStore {
+/**
+ * Context type declaration
+ */
+interface CommonContextStore {
   theme: import("@/themes").AppTheme;
   toast: Toast;
 }
 
-interface ThemeAction {
-  type: ActionType<"@@COMMON", "TOGGLE_THEME">;
+/**
+ * Context action variants type declaration
+ */
+interface ThemeContextAction {
+  type: ContextActionType<"@@COMMON", "TOGGLE_THEME">;
 }
 
-interface ToastCloseAction {
-  type: ActionType<"@@COMMON", "CLOSE_TOAST">;
+interface ToastCloseContextAction {
+  type: ContextActionType<"@@COMMON", "CLOSE_TOAST">;
 }
 
-interface ToastOpenAction {
-  type: ActionType<"@@COMMON", "OPEN_TOAST">;
+interface ToastOpenContextAction {
+  type: ContextActionType<"@@COMMON", "OPEN_TOAST">;
   payload: Omit<Toast, "status">;
 }
 
-type CommonAction =
-  | ThemeAction
-  | ToastCloseAction
-  | ToastOpenAction;
+/**
+ * Main context action
+ */
+type CommonContextAction =
+  | ThemeContextAction
+  | ToastCloseContextAction
+  | ToastOpenContextAction;

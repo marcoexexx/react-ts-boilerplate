@@ -9,9 +9,7 @@ interface ErrorBoundaryState {
   error?: Error | AppError;
 }
 
-export class ErrorBoundary
-  extends Component<ErrorBoundaryProps, ErrorBoundaryState>
-{
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = {
@@ -49,6 +47,9 @@ export class ErrorBoundary
 
           case AppErrorKind.AccessDeniedError:
             return <h1>AccessDeniedError Page</h1>;
+
+          case AppErrorKind.NotImplemented:
+            return <h1>NotImplemented Page</h1>;
 
           // UnknownError
           case AppErrorKind.UnknownError:

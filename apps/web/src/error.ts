@@ -10,6 +10,7 @@ export const AppErrorKind = {
   BlockedError: "BlockedError",
   ServiceError: "ServiceError",
   AccessDeniedError: "AccessDeniedError",
+  NotImplemented: "NotImplemented",
 
   UnknownError: "UnknownError",
 } as const;
@@ -28,3 +29,9 @@ export class AppError extends Error implements ToString {
     return `${this.kind}: "${this.message}"`;
   }
 }
+
+export const todo = (msg?: string) =>
+  AppError.new(
+    AppErrorKind.NotImplemented,
+    `This feature is not NotImplemented${msg ? `: ${msg}` : "."}`,
+  );

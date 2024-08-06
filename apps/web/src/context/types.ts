@@ -1,9 +1,8 @@
-type Action =
-  | LocaleAction
-  | CommonAction
-  | TodoAction
-  | PermissionAction;
+type ContextAction =
+  | LocaleContextAction
+  | CommonContextAction
+  | PermissionContextAction;
 
-type ActionScope = Uppercase<`@@${keyof import("./index").Store}`>;
+type ContextActionScope = Uppercase<`@@${keyof import("./index").ContextStore}`>;
 
-type ActionType<Key extends ActionScope, T extends string> = `${Key}/${T}`;
+type ContextActionType<Key extends ContextActionScope, T extends string> = `${Key}/${T}`;

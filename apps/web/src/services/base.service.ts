@@ -7,30 +7,18 @@ export abstract class BaseService<
 > {
   public abstract repo: ResourceKey;
 
-  /// TODO: impletemt api fetch
   async findMany(
     opt: QueryOptionArgs,
-    { filter, pagination, include }: Filter,
+    filter: Filter,
   ): Promise<HttpListResponse<Return>> {
-    let { Db } = await import("./_devDb");
+    console.log(`${this.repo}.findMany`, opt, filter);
 
-    console.log(`${this.repo}.findMany`, {
-      opt,
-      filter,
-      pagination,
-      include,
-    });
-
-    let res: HttpListResponse<Return> = {
-      count: Db[this.repo].length,
-      error: undefined,
-      status: 200,
-      results: Db.todos,
-    };
-
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(res), 3 * 1000);
-    });
+    return Promise.reject(
+      AppError.new(
+        AppErrorKind.ServiceError,
+        `Unimplemented feature call ${this.repo}::find`,
+      ),
+    );
   }
 
   async find(opt: QueryOptionArgs, filter: {
@@ -58,19 +46,15 @@ export abstract class BaseService<
     );
   }
 
-  /// TODO: impletemt api fetch, Response return!!
   async create(payload: CreatePayload<Return>): Promise<Return> {
-    let { Db } = await import("./_devDb");
+    console.log({ payload });
 
-    let newEntity: BasePayload = {
-      ...payload,
-      id: `${Db[this.repo].length + 1}`,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    Db[this.repo].push(newEntity);
-
-    return newEntity as Return;
+    return Promise.reject(
+      AppError.new(
+        AppErrorKind.ServiceError,
+        `Unimplemented feature call ${this.repo}::uploadExcel`,
+      ),
+    );
   }
 
   async update(arg: {

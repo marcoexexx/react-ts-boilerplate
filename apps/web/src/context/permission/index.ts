@@ -1,7 +1,24 @@
 import { INITIAL_PAGINATION } from "@/services";
 import { AppError, AppErrorKind } from "@error";
 
-export const initialPermissionStore: PermissionStore = {
+export const PermissionAction = {
+  Create: "Create",
+  Read: "Read",
+  Update: "Update",
+  Delete: "Delete",
+} as const;
+export type PermissionAction = typeof PermissionAction[keyof typeof PermissionAction];
+
+export const PermissionResource: Record<
+  import("@/services").ResourceAccessKey,
+  import("@/services").ResourceAccessKey
+> = {
+  Permission: "Permission",
+  Task: "Task",
+} as const;
+export type PermissionResource = typeof PermissionResource[keyof typeof PermissionResource];
+
+export const initialPermissionStore: PermissionContextStore = {
   filter: {
     pagination: INITIAL_PAGINATION,
     include: undefined,
@@ -9,9 +26,9 @@ export const initialPermissionStore: PermissionStore = {
 };
 
 export function permissionReducer(
-  store: PermissionStore,
-  action: PermissionAction,
-): PermissionStore {
+  store: PermissionContextStore,
+  action: PermissionContextAction,
+): PermissionContextStore {
   switch (action.type) {
     case "@@PERMISSION/SET_PERMISSION_PAGE": {
       return {

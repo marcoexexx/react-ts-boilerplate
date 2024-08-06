@@ -2,22 +2,21 @@ import { createContext, useReducer } from "react";
 import { commonReducer, initialCommonStore } from "./common";
 import { initialLocaleStore, localeReducer } from "./locale";
 import { initialPermissionStore, permissionReducer } from "./permission";
-import { initialTodoStore, todoReducer } from "./todo";
 
 const initialStore = {
   // -- Settings
   locale: initialLocaleStore,
-
   common: initialCommonStore,
-  todo: initialTodoStore,
+
+  // -- Resources
   permission: initialPermissionStore,
   // more stores
 };
-export type Store = typeof initialStore;
+export type ContextStore = typeof initialStore;
 
-function storeReducer(store: Store, action: Action): Store {
+function storeReducer(store: ContextStore, action: ContextAction): ContextStore {
   const handleReducer = <T, A>(
-    scope: ActionScope,
+    scope: ContextActionScope,
     currentStore: T,
     reducer: (state: T, action: A) => T,
   ) =>
@@ -27,7 +26,6 @@ function storeReducer(store: Store, action: Action): Store {
 
   const locale = handleReducer("@@LOCALE", store.locale, localeReducer);
   const common = handleReducer("@@COMMON", store.common, commonReducer);
-  const todo = handleReducer("@@TODO", store.todo, todoReducer);
   const permission = handleReducer("@@PERMISSION", store.permission, permissionReducer);
 
   // more reducer scopes
@@ -35,23 +33,22 @@ function storeReducer(store: Store, action: Action): Store {
   return {
     locale,
     common,
-    todo,
     permission,
     // more stores
   };
 }
 
-type Dispatch = (action: Action) => void;
+type ContextDispatch = (action: ContextAction) => void;
 
 export const StoreContext = createContext<
-  { state: Store; dispatch: Dispatch } | undefined
+  { state: ContextStore; dispatch: ContextDispatch } | undefined
 >(undefined);
 
 interface StoreProviderProps {
   children: React.ReactNode;
 }
 
-export function StoreProvider(props: StoreProviderProps) {
+export function ContextStoreProvider(props: StoreProviderProps) {
   const { children } = props;
   const [state, dispatch] = useReducer(storeReducer, initialStore);
 

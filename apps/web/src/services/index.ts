@@ -6,4 +6,3 @@ export const INITIAL_PAGINATION: Pagination = {
 };
 
 export * from "./permission.service";
-export * from "./todo.service";

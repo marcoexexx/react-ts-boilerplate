@@ -1,2 +1,2 @@
-export * from "./usePermission";
+export * from "./useGetUserPermissions";
 export * from "./useStore";

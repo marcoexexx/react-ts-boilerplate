@@ -1,5 +1,5 @@
 import { AppError, AppErrorKind } from "@/error";
-import { useGetPermissions } from "@/hooks";
+import { useGetUserPermissions } from "@/hooks";
 import { SuspenseLoader } from "./SuspenseLoader";
 
 interface WithGuardProps {
@@ -7,12 +7,12 @@ interface WithGuardProps {
 }
 
 export function withGuard<Props extends {}>(
+  permission: CheckPermissionInput,
   WrappedComponent: React.ComponentType<Props & WithGuardProps>,
-  permission: Pick<Permission, "action" | "resource">,
-  safe = true,
+  safe = false,
 ) {
   const ComponentWithGuard = (props: Props) => {
-    let { try_data, isLoading } = useGetPermissions({});
+    let { try_data, isLoading } = useGetUserPermissions(permission);
 
     let data = try_data.ok_or_throw();
     let isAllowed = data?.results.some(p =>
@@ -20,7 +20,7 @@ export function withGuard<Props extends {}>(
       && p.resource === permission.resource
     ) ?? false;
 
-    let comp = <WrappedComponent {...props} allowed={true} />;
+    let comp = <WrappedComponent {...props} allowed={isAllowed} />;
 
     if (isLoading) return <SuspenseLoader />;
 

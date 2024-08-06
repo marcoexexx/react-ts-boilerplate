@@ -1,11 +1,17 @@
 /**
- * Context
+ * Context type declaration
  */
-type LocaleStore = {} & import("locale").Locale;
+type LocaleContextStore = {} & import("locale").Locale;
 
-interface SetLocaleAction {
-  type: ActionType<"@@LOCALE", "SET_LOCALE">;
+/**
+ * Context action variants type declaration
+ */
+interface SetLocaleContextAction {
+  type: ContextActionType<"@@LOCALE", "SET_LOCALE">;
   payload: import("locale").Locale;
 }
 
-type LocaleAction = SetLocaleAction;
+/**
+ * Main context action
+ */
+type LocaleContextAction = SetLocaleContextAction;

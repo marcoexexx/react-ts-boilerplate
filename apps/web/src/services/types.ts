@@ -10,7 +10,7 @@ type QueryOptionArgs = {
 };
 
 // TODO: implement for app filter type. example, prisma where type.
-type FilterInput<T> = import("./prisma-filter-types").WhereInput<T>;
+type WhereInput<T> = import("./prisma-filter-types").WhereInput<T>;
 
 type BasePayload = {
   id: string;
@@ -24,7 +24,7 @@ type UpdatePayload<T extends BasePayload> = Partial<
 >;
 
 type FilterPayload<T extends BasePayload> = {
-  filter?: FilterInput<T>;
+  where?: WhereInput<T>;
   pagination?: Pagination;
   include?: any;
 };

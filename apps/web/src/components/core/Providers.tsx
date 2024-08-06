@@ -1,5 +1,5 @@
 import { ErrorBoundary } from "@/components/core";
-import { StoreProvider } from "@/context";
+import { ContextStoreProvider } from "@/context";
 import ThemeWrapper from "@/themes/themeWrapper";
 import { Duration } from "@/utils";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -26,7 +26,7 @@ export function Providers(props: ProvidersProps) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <StoreProvider>
+      <ContextStoreProvider>
         <HelmetProvider>
           <QueryClientProvider client={queryClient}>
             <ErrorBoundary>
@@ -37,7 +37,7 @@ export function Providers(props: ProvidersProps) {
             </ErrorBoundary>
           </QueryClientProvider>
         </HelmetProvider>
-      </StoreProvider>
+      </ContextStoreProvider>
     </LocalizationProvider>
   );
 }
