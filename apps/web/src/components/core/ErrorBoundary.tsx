@@ -1,3 +1,4 @@
+import UserNotLoggedInErrorPage from "@/pages/status/error/UserNotLoggedInErrorPage";
 import { AppError, AppErrorKind } from "@error";
 import { Component, ErrorInfo, ReactNode } from "react";
 
@@ -27,6 +28,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
       if (this.state.error instanceof AppError) {
         const err = this.state.error;
         switch (err.kind) {
+          case AppErrorKind.UserNotLoggedIn:
+            console.log("->> go to not logged page.");
+            // return <UserNotLoggedInErrorPage />;
+            return <h1>ApiError -^^</h1>;
+
           case AppErrorKind.ApiError:
             return <h1>ApiError</h1>;
 
@@ -60,10 +66,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             console.error({ _unreachable });
 
             // TODO: render ErrorPage
-            return <h1>UncaughtErrorPage</h1>;
+            return <h1>UncaughtErrorPage other kinds</h1>;
           }
         }
-      } else return <h1>UncaughtErrorPage</h1>;
+      } else return <h1>UncaughtErrorPage global</h1>;
     } else return this.props.children;
   }
 }

@@ -7,8 +7,16 @@ import PageLoader from "./pageLoader";
 
 const HomePage = PageLoader(lazy(() => import("@/pages/home/index")));
 
+/// AUTH PAGES
+const SignInPage = PageLoader(lazy(() => import("@/pages/auth/SignIn")));
+
 /// TASKS PAGES
 const TaskListPage = PageLoader(lazy(() => import("@/pages/tasks/ListTasks")));
+
+/// ERROR PAGES
+
+/// TEST PAGES :: for only development
+const TestPage = PageLoader(lazy(() => import("@/pages/_TestPage")));
 
 const routes = createBrowserRouter([
   /**
@@ -26,6 +34,11 @@ const routes = createBrowserRouter([
       {
         path: "home",
         element: <Navigate to="/" />,
+      },
+
+      {
+        path: "test",
+        Component: TestPage,
       },
 
       /// TASKS ROUTES
@@ -60,8 +73,8 @@ const routes = createBrowserRouter([
         path: "auth",
         children: [
           {
-            path: "signin",
-            Component: () => <h1>Signin</h1>,
+            path: "sign-in",
+            Component: SignInPage,
           },
         ],
       },
@@ -85,6 +98,11 @@ const routes = createBrowserRouter([
       {
         path: "verify/email", // verify/email/?v=<token>
         Component: () => <h1>verify email</h1>,
+      },
+
+      {
+        path: "*",
+        Component: () => <h1>Global 404</h1>,
       },
     ],
   },

@@ -6,6 +6,7 @@ interface WithGuardProps {
   allowed: boolean;
 }
 
+/// TODO: handle router level and component level. need to use ErrorBoundary
 export function withGuard<Props extends {}>(
   permission: CheckPermissionInput,
   WrappedComponent: React.ComponentType<Props & WithGuardProps>,
