@@ -72,8 +72,7 @@ export function translate(key: TxPath, options?: LocaleOptions) {
   return localization.t(key, options);
 }
 
-type RecusiveKeyOfHandleValue<TValue, Text extends string> = TValue extends
-  any[] ? Text
+type RecusiveKeyOfHandleValue<TValue, Text extends string> = TValue extends any[] ? Text
   : TValue extends object ? `${Text}.${RecusiveKeyOf<TValue>}`
   : Text;
 

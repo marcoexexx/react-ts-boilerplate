@@ -26,10 +26,7 @@ export function withGuard<Props extends {}>(
 
     if (safe) return comp;
     else if (isAllowed) return comp;
-    else {throw AppError.new(
-        AppErrorKind.AccessDeniedError,
-        `This page need permission.`,
-      );}
+    else throw AppError.new(AppErrorKind.AccessDeniedError, `This page need permission.`);
   };
 
   return ComponentWithGuard;
