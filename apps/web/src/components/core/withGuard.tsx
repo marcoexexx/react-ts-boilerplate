@@ -8,15 +8,15 @@ interface WithGuardProps {
 }
 
 export function withGuard<Props extends {}>(
-  permission: CheckPermissionInput,
   WrappedComponent: React.ComponentType<Props & WithGuardProps>,
+  permission?: CheckPermissionInput,
   safe = false,
 ) {
   const ComponentWithGuard = (props: Props) => {
     const user = useRouteLoaderData("root") as User | undefined;
     const { dispatch } = useStore();
 
-    const isAllowed = useCheckPermission(permission);
+    const isAllowed = useCheckPermission(permission, false);
 
     useEffect(() => {
       if (user) dispatch({ type: "@@COMMON/SIGN_USER", payload: user });

@@ -1,3 +1,4 @@
+import { EnhancedText } from "@/components/common";
 import { withGuard } from "@/components/core";
 import { PermissionAction, PermissionResource } from "@/context/permission";
 
@@ -8,12 +9,15 @@ const permission: CheckPermissionInput = {
 
 interface ListTasksProps {}
 
-const ListTasks = withGuard<ListTasksProps>(permission, (props) => {
+// TODO: Need handle permission
+const ListTasks = withGuard<ListTasksProps>((props) => {
   return (
     <div>
-      Ok: {props.allowed ? "ALLOWED" : "NOT"}
+      <EnhancedText>
+        LIST READ {props.allowed ? "ALLOWED" : "DENIED"}
+      </EnhancedText>
     </div>
   );
-}, true);
+}, permission);
 
 export default ListTasks;
