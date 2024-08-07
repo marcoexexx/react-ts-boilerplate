@@ -1,11 +1,11 @@
-import { PermissionService, ResourceKey } from "@/services";
+import { AuthService } from "@/services";
 import { queryClient } from "./Providers";
 
-const apiService = PermissionService.new();
+const apiService = AuthService.new();
 
 export function AuthLoader() {
   return queryClient.fetchQuery({
-    queryKey: [ResourceKey.AuthUser],
+    queryKey: [apiService.repo],
     queryFn: args => apiService.getMe(args),
     retry: 1,
   });

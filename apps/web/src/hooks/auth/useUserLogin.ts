@@ -1,4 +1,4 @@
-import { userLoginFn } from "@/services/baseApi";
+import { AuthService } from "@/services";
 import { AppError, AppErrorKind, Result } from "@error";
 import { useMutation } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ export function useUserLogin() {
   const from = location.state?.from?.pathname || "/home";
 
   const mutation = useMutation({
-    mutationFn: userLoginFn,
+    mutationFn: AuthService.userLogin,
     onSuccess: () => {
       // TODO: display toast
       // dispatch({

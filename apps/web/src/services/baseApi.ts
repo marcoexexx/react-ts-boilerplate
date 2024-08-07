@@ -1,7 +1,7 @@
-import { SignInUserInput } from "@/components/auth";
 import getConfig from "@/utils/getConfig";
 import { AppError, AppErrorKind } from "@error";
 import axios, { AxiosResponse } from "axios";
+import { AuthService } from "./auth.service";
 
 const BASE_URL = getConfig("backendEndpoint");
 
@@ -29,17 +29,18 @@ async function handleResponseOnRejected(error: any) {
     );
   }
 
-  const type = res.data.type as string;
   const message = res.data.message as string;
 
-  if (type === "NO_AUTH" && message.includes("jwt expired") && !orgReq._retry) {
-    await refreshAccessTokenFn();
+  if (message.includes("jwt expired") && !orgReq._retry) {
     orgReq._retry = true;
+
+    await AuthService.refreshAccessToken();
     return baseApi(orgReq);
   }
 
   if (
-    message.includes("Refresh token not found") || message.includes("Missing authorization token")
+    message.includes("Refresh token not found")
+    || message.includes("Missing authorization token")
   ) {
     return Promise.reject(
       AppError.new(
@@ -53,17 +54,3 @@ async function handleResponseOnRejected(error: any) {
 }
 
 baseApi.interceptors.response.use(handleResponseOnFulfilled, handleResponseOnRejected);
-
-type AccessTokenResponse = { accessToken: string };
-
-export async function refreshAccessTokenFn() {
-  const res = await baseApi.get<AccessTokenResponse>("auth/refresh-token");
-  console.log("called refresh-token", res.data);
-
-  return res.data;
-}
-
-export async function userLoginFn(user: SignInUserInput) {
-  const res = await baseApi.post<AccessTokenResponse>("auth/login", user);
-  return res.data;
-}

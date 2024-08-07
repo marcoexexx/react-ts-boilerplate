@@ -1,9 +1,9 @@
-import { PermissionService, ResourceKey } from "@/services";
+import { AuthService, ResourceKey } from "@/services";
 import { AppError, AppErrorKind, Result } from "@error";
 import { useQuery } from "@tanstack/react-query";
 import { Err, Ok } from "result";
 
-const apiService = PermissionService.new();
+const apiService = AuthService.new();
 
 export function useGetMe() {
   const query = useQuery({
