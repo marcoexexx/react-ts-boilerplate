@@ -14,6 +14,6 @@ const ListTasks = withGuard<ListTasksProps>(permission, (props) => {
       Ok: {props.allowed ? "ALLOWED" : "NOT"}
     </div>
   );
-});
+}, true);
 
 export default ListTasks;

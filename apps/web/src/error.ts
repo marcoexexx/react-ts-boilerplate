@@ -12,6 +12,7 @@ export const AppErrorKind = {
   AccessDeniedError: "AccessDeniedError",
   NotImplemented: "NotImplemented",
   UserNotLoggedIn: "UserNotLoggedIn",
+  FailedLogin: "FailedLogin",
 
   UnknownError: "UnknownError",
 } as const;

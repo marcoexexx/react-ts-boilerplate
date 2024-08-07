@@ -1,4 +1,5 @@
 import { ErrorBoundaryRouter } from "@/components/core";
+import { AuthLoader } from "@/components/core/authLoader";
 import { BaseLayout, OtherLayout } from "@/layouts";
 import { ResourceKey } from "@/services";
 import { lazy } from "react";
@@ -14,18 +15,18 @@ const SignInPage = PageLoader(lazy(() => import("@/pages/auth/SignIn")));
 const TaskListPage = PageLoader(lazy(() => import("@/pages/tasks/ListTasks")));
 
 /// ERROR PAGES
-
-/// TEST PAGES :: for only development
-const TestPage = PageLoader(lazy(() => import("@/pages/_TestPage")));
+const FailedLoginPage = PageLoader(lazy(() => import("@/pages/status/error/FailedLoginPage")));
 
 const routes = createBrowserRouter([
   /**
    * Other Layout
    */
   {
+    id: "root",
     path: "",
     Component: OtherLayout,
     ErrorBoundary: ErrorBoundaryRouter,
+    loader: AuthLoader,
     children: [
       {
         path: "",
@@ -34,11 +35,6 @@ const routes = createBrowserRouter([
       {
         path: "home",
         element: <Navigate to="/" />,
-      },
-
-      {
-        path: "test",
-        Component: TestPage,
       },
 
       /// TASKS ROUTES
@@ -88,6 +84,12 @@ const routes = createBrowserRouter([
           {
             path: "404",
             Component: () => <h1>404</h1>,
+          },
+          {
+            id: "failed-login",
+            path: "failed-login",
+            loader: AuthLoader, // For check user logged or not
+            Component: FailedLoginPage,
           },
         ],
       },

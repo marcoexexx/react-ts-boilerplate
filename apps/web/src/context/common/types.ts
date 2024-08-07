@@ -9,10 +9,32 @@ interface Toast {
     | "info";
 }
 
+interface User {
+  id: string;
+
+  username: string;
+  email: string;
+  password: string;
+  type: import("@/context/common").UserType;
+  emailVerificationToken: string | null;
+  emailVerified: boolean;
+  optAuthUrl: string | null;
+  optEnabled: boolean;
+  optToken: string | null;
+  optVerified: boolean | null;
+
+  role: Role;
+  roleId: string;
+
+  createdAt: string;
+  updatedAt: string;
+}
+
 /**
  * Context type declaration
  */
 interface CommonContextStore {
+  auth: User | undefined;
   theme: import("@/themes").AppTheme;
   toast: Toast;
 }
@@ -20,6 +42,11 @@ interface CommonContextStore {
 /**
  * Context action variants type declaration
  */
+interface SignUserContextAction {
+  type: ContextActionType<"@@COMMON", "SIGN_USER">;
+  payload: User;
+}
+
 interface ThemeContextAction {
   type: ContextActionType<"@@COMMON", "TOGGLE_THEME">;
 }
@@ -37,6 +64,7 @@ interface ToastOpenContextAction {
  * Main context action
  */
 type CommonContextAction =
+  | SignUserContextAction
   | ThemeContextAction
   | ToastCloseContextAction
   | ToastOpenContextAction;

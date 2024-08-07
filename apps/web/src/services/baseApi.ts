@@ -32,9 +32,9 @@ async function handleResponseOnRejected(error: any) {
   const type = res.data.type as string;
   const message = res.data.message as string;
 
-  if (type === "NO_AUTH" && message.includes("expired") && !orgReq._retry) {
-    orgReq._retry = true;
+  if (type === "NO_AUTH" && message.includes("jwt expired") && !orgReq._retry) {
     await refreshAccessTokenFn();
+    orgReq._retry = true;
     return baseApi(orgReq);
   }
 
@@ -58,6 +58,8 @@ type AccessTokenResponse = { accessToken: string };
 
 export async function refreshAccessTokenFn() {
   const res = await baseApi.get<AccessTokenResponse>("auth/refresh-token");
+  console.log("called refresh-token", res.data);
+
   return res.data;
 }
 

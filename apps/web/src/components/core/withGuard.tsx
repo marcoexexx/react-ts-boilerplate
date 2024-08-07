@@ -1,29 +1,19 @@
 import { AppError, AppErrorKind } from "@/error";
-import { useGetUserPermissions } from "@/hooks";
-import { SuspenseLoader } from "./SuspenseLoader";
+import { useCheckPermission } from "@/hooks";
 
 interface WithGuardProps {
   allowed: boolean;
 }
 
-/// TODO: handle router level and component level. need to use ErrorBoundary
 export function withGuard<Props extends {}>(
   permission: CheckPermissionInput,
   WrappedComponent: React.ComponentType<Props & WithGuardProps>,
   safe = false,
 ) {
   const ComponentWithGuard = (props: Props) => {
-    let { try_data, isLoading } = useGetUserPermissions(permission);
-
-    let data = try_data.ok_or_throw();
-    let isAllowed = data?.results.some(p =>
-      p.action === permission.action
-      && p.resource === permission.resource
-    ) ?? false;
+    let isAllowed = useCheckPermission(permission);
 
     let comp = <WrappedComponent {...props} allowed={isAllowed} />;
-
-    if (isLoading) return <SuspenseLoader />;
 
     if (safe) return comp;
     else if (isAllowed) return comp;

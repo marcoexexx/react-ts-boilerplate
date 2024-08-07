@@ -1,17 +1,14 @@
-import { AppErrorKind } from "@/error";
-import { Navigate, useLocation, useRouteError } from "react-router-dom";
+import { useRouteError } from "react-router-dom";
+import { EnhancedText } from "../common";
+import { ErrorHandler } from "./ErrorHandler";
 
+/**
+ * Router page level error boundary.
+ */
 export function ErrorBoundaryRouter() {
   const error = useRouteError() as Error | undefined;
-  const location = useLocation();
 
-  if ((error as any).kind === AppErrorKind.UserNotLoggedIn) {
-    return <Navigate to="/auth/sign-in" state={{ from: location }} />;
-  }
+  if (error) return <ErrorHandler error={error} />; // All of possible errors handle
 
-  return (
-    <h1>
-      UncaughtRouterErrorPage: <pre>{JSON.stringify(error)}</pre>
-    </h1>
-  );
+  return <EnhancedText>Unknown internal error</EnhancedText>; // Display unknown error, but This will never reach.
 }

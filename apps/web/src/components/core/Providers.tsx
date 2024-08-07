@@ -10,7 +10,7 @@ import { HelmetProvider } from "react-helmet-async";
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 1,
+      retry: 3,
 
       staleTime: Duration.fromHours(1),
     },
@@ -30,7 +30,6 @@ export function Providers(props: ProvidersProps) {
         <HelmetProvider>
           <QueryClientProvider client={queryClient}>
             <ErrorBoundary>
-              {/* AuthProvider */}
               <ThemeWrapper>
                 {children}
               </ThemeWrapper>

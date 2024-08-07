@@ -20,14 +20,10 @@ export class PermissionService extends BaseService<PermissionFilterInput, Permis
     throw todo(`PermissionService::findMany is not implamented.`);
   }
 
-  async getUserPermission(
-    opt: QueryOptionArgs,
-    params: CheckPermissionInput,
-  ) {
-    let url = `/api/auth/permission`;
-    let res = await baseApi.get<HttpListResponse<Permission>>(url, {
+  async getMe(opt: QueryOptionArgs) {
+    let url = `/auth/me`;
+    let res = await baseApi.get<User>(url, {
       ...opt,
-      params,
     });
 
     return res.data;

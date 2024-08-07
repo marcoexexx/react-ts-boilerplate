@@ -5,10 +5,10 @@ import { Err, Ok } from "result";
 
 const apiService = PermissionService.new();
 
-export function useGetUserPermissions(params: CheckPermissionInput) {
+export function useGetMe() {
   const query = useQuery({
-    queryKey: [ResourceKey.UserPermission, params],
-    queryFn: args => apiService.getUserPermission(args, params),
+    queryKey: [ResourceKey.AuthUser],
+    queryFn: args => apiService.getMe(args),
     select: data => data,
   });
 
