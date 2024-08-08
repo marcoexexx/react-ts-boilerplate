@@ -15,7 +15,6 @@ const SignInPage = PageLoader(lazy(() => import("@/pages/auth/SignIn")));
 const TaskListPage = PageLoader(lazy(() => import("@/pages/tasks/ListTasks")));
 
 /// ERROR PAGES
-const FailedLoginPage = PageLoader(lazy(() => import("@/pages/status/error/FailedLoginPage")));
 
 const routes = createBrowserRouter([
   /**
@@ -84,12 +83,6 @@ const routes = createBrowserRouter([
           {
             path: "404",
             Component: () => <h1>404</h1>,
-          },
-          {
-            id: "failed-login",
-            path: "failed-login",
-            loader: AuthLoader, // For check user logged or not
-            Component: FailedLoginPage,
           },
         ],
       },
