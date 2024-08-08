@@ -9,7 +9,6 @@ const permission: CheckPermissionInput = {
 
 interface ListTasksProps {}
 
-// TODO: Need handle permission
 const ListTasks = withGuard<ListTasksProps>((props) => {
   return (
     <div>
