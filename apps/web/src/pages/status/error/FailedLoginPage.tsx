@@ -1,7 +1,6 @@
 import { EnhancedButton, EnhancedText } from "@/components/common";
 import { Box, styled } from "@mui/material";
-import { useEffect } from "react";
-import { useLocation, useNavigate, useRouteLoaderData } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const MainContent = styled(Box)(({}) => ({
   display: "flex",
@@ -12,15 +11,10 @@ const MainContent = styled(Box)(({}) => ({
 }));
 
 export default function FailedLoginPage() {
-  const user = useRouteLoaderData("failed-login");
   const location = useLocation();
   const navigate = useNavigate();
 
   const from = `/auth/sign-in`;
-
-  useEffect(() => {
-    if (location.pathname === "/status/failed-login" && user !== undefined) navigate(`/home`);
-  }, [user]);
 
   const handleGoToLogin = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
