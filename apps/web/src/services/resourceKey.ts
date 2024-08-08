@@ -4,7 +4,7 @@ export const ResourceKey = {
   Task: "task",
 
   // -- Only cache and routes
-  AuthUser: "AuthUser",
+  AuthUser: "authUser",
 } as const;
 export type ResourceKey = typeof ResourceKey[keyof typeof ResourceKey];
 export type ResourceAccessKey = keyof Omit<typeof ResourceKey, "AuthUser">;
