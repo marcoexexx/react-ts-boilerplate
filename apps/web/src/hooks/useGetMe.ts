@@ -5,10 +5,11 @@ import { Err, Ok } from "result";
 
 const apiService = AuthService.new();
 
-export function useGetMe() {
+export function useGetMe({ retry }: { retry?: number } = {}) {
   const query = useQuery({
     queryKey: [ResourceKey.AuthUser],
     queryFn: args => apiService.getMe(args),
+    retry,
     select: data => data,
   });
 

@@ -25,7 +25,7 @@ interface SignInProps {}
 export default function SignIn(props: SignInProps) {
   const {} = props;
 
-  const query = useGetMe();
+  const query = useGetMe({ retry: 1 });
   const location = useLocation();
   const navigate = useNavigate();
 
