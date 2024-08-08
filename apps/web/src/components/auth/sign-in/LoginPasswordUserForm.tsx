@@ -98,7 +98,7 @@ export function LoginPasswordUserForm(props: LoginPasswordUserFormProps) {
           />
         </FormControl>
 
-        <PasswordInputField fieldName="password" />
+        <PasswordInputField fieldName="password" autoFocus={true} />
 
         <EnhancedButton
           variant="contained"

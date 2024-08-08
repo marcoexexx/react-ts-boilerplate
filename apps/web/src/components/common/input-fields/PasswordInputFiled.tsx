@@ -13,7 +13,13 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 export function PasswordInputField(
-  { fieldName }: { fieldName: "password" | "passwordConfirm" },
+  {
+    fieldName,
+    autoFocus = false,
+  }: {
+    fieldName: "password" | "passwordConfirm";
+    autoFocus?: boolean;
+  },
 ) {
   const [showPassword, setShowPassword] = useState(false);
   const { control, formState: { errors } } = useFormContext();
@@ -42,6 +48,7 @@ export function PasswordInputField(
           <OutlinedInput
             type={showPassword ? "text" : "password"}
             error={!!errors[fieldName]}
+            autoFocus={autoFocus}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -58,7 +65,7 @@ export function PasswordInputField(
           />
           {!!errors[fieldName]
             ? (
-              <FormHelperText sx={{ color: (theme) => theme.colors.error.main}}>
+              <FormHelperText sx={{ color: (theme) => theme.colors.error.main }}>
                 {errors?.[fieldName]?.message as string || ""}
               </FormHelperText>
             )
