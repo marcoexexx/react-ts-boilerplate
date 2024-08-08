@@ -5,4 +5,4 @@ export const INITIAL_PAGINATION: Pagination = {
   pageSize: 10,
 };
 
-export * from "./permission.service";
+export * from "./auth.service";

@@ -1,4 +1,5 @@
 import { ErrorBoundaryRouter } from "@/components/core";
+import { AuthLoader } from "@/components/core/authLoader";
 import { BaseLayout, OtherLayout } from "@/layouts";
 import { ResourceKey } from "@/services";
 import { lazy } from "react";
@@ -7,17 +8,25 @@ import PageLoader from "./pageLoader";
 
 const HomePage = PageLoader(lazy(() => import("@/pages/home/index")));
 
+/// AUTH PAGES
+const SignInPage = PageLoader(lazy(() => import("@/pages/auth/SignIn")));
+
 /// TASKS PAGES
 const TaskListPage = PageLoader(lazy(() => import("@/pages/tasks/ListTasks")));
+
+/// ERROR PAGES
+const FailedLoginPage = PageLoader(lazy(() => import("@/pages/status/error/FailedLoginPage")));
 
 const routes = createBrowserRouter([
   /**
    * Other Layout
    */
   {
+    id: "root",
     path: "",
     Component: OtherLayout,
     ErrorBoundary: ErrorBoundaryRouter,
+    loader: AuthLoader,
     children: [
       {
         path: "",
@@ -60,8 +69,8 @@ const routes = createBrowserRouter([
         path: "auth",
         children: [
           {
-            path: "signin",
-            Component: () => <h1>Signin</h1>,
+            path: "sign-in",
+            Component: SignInPage,
           },
         ],
       },
@@ -76,6 +85,12 @@ const routes = createBrowserRouter([
             path: "404",
             Component: () => <h1>404</h1>,
           },
+          {
+            id: "failed-login",
+            path: "failed-login",
+            loader: AuthLoader, // For check user logged or not
+            Component: FailedLoginPage,
+          },
         ],
       },
 
@@ -85,6 +100,11 @@ const routes = createBrowserRouter([
       {
         path: "verify/email", // verify/email/?v=<token>
         Component: () => <h1>verify email</h1>,
+      },
+
+      {
+        path: "*",
+        Component: () => <h1>Global 404</h1>,
       },
     ],
   },

@@ -1,14 +1,15 @@
-import { PermissionService, ResourceKey } from "@/services";
+import { AuthService, ResourceKey } from "@/services";
 import { AppError, AppErrorKind, Result } from "@error";
 import { useQuery } from "@tanstack/react-query";
 import { Err, Ok } from "result";
 
-const apiService = PermissionService.new();
+const apiService = AuthService.new();
 
-export function useGetUserPermissions(params: CheckPermissionInput) {
+export function useGetMe({ retry }: { retry?: number } = {}) {
   const query = useQuery({
-    queryKey: [ResourceKey.UserPermission, params],
-    queryFn: args => apiService.getUserPermission(args, params),
+    queryKey: [ResourceKey.AuthUser],
+    queryFn: args => apiService.getMe(args),
+    retry,
     select: data => data,
   });
 

@@ -1,13 +1,13 @@
 export const ResourceKey = {
   // -- API Resources
   Permission: "permission",
+  Task: "task",
 
   // -- Only cache and routes
-  UserPermission: "user-permission",
-  Task: "task",
+  AuthUser: "authUser",
 } as const;
 export type ResourceKey = typeof ResourceKey[keyof typeof ResourceKey];
-export type ResourceAccessKey = keyof Omit<typeof ResourceKey, "UserPermission">;
+export type ResourceAccessKey = keyof Omit<typeof ResourceKey, "AuthUser">;
 
 export type CacheResourcePageKey<
   T extends ResourceKey,

@@ -11,6 +11,8 @@ export const AppErrorKind = {
   ServiceError: "ServiceError",
   AccessDeniedError: "AccessDeniedError",
   NotImplemented: "NotImplemented",
+  UserNotLoggedIn: "UserNotLoggedIn",
+  FailedLogin: "FailedLogin",
 
   UnknownError: "UnknownError",
 } as const;
@@ -18,7 +20,7 @@ export type AppErrorKind = typeof AppErrorKind[keyof typeof AppErrorKind];
 
 export class AppError extends Error implements ToString {
   constructor(public kind: AppErrorKind, message: string) {
-    super(`${message}: ${kind}`);
+    super(`${message}`);
   }
 
   static new(kind: AppErrorKind, message: string) {
@@ -26,7 +28,7 @@ export class AppError extends Error implements ToString {
   }
 
   toString() {
-    return `${this.kind}: "${this.message}"`;
+    return `${this.kind}: ${this.message}`;
   }
 }
 
