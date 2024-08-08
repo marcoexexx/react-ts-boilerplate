@@ -16,7 +16,7 @@ export function withGuard<Props extends {}>(
     const user = useRouteLoaderData("root") as User | undefined;
     const { dispatch } = useStore();
 
-    const isAllowed = useCheckPermission(permission, false);
+    const isAllowed = useCheckPermission(user, permission, false);
 
     useEffect(() => {
       if (user) dispatch({ type: "@@COMMON/SIGN_USER", payload: user });

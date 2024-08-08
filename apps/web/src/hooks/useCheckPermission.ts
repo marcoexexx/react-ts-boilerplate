@@ -1,14 +1,13 @@
 import { UserType } from "@/context/common";
-import { useStore } from "./useStore";
 
-export function useCheckPermission(permInput?: CheckPermissionInput, strict = true): boolean {
-  const { state } = useStore();
+export function useCheckPermission(
+  user: User | undefined,
+  permInput?: CheckPermissionInput,
+  strict = true,
+): boolean {
+  if (!permInput || !user) return !strict; // TODO: Guest user permission.
 
-  if (!permInput) return !strict;
-
-  const user = state.common.auth;
-
-  return (user?.role?.permissions?.some(perm =>
+  return (user.role?.permissions.some(perm =>
     perm.action === permInput.action && perm.resource === permInput.resource
-  ) || user?.type === UserType.Superuser) ?? false;
+  ) || user.type === UserType.Superuser) ?? false;
 }

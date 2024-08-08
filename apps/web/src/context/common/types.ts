@@ -23,8 +23,8 @@ interface User {
   optToken: string | null;
   optVerified: boolean | null;
 
-  role: Role;
-  roleId: string;
+  role?: Role;
+  roleId?: string;
 
   createdAt: string;
   updatedAt: string;

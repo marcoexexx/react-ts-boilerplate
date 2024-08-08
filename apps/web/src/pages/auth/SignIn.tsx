@@ -1,7 +1,10 @@
 import { SignInUserForm } from "@/components/auth";
 import { EnhancedText } from "@/components/common";
+import { SuspenseLoader } from "@/components/core";
+import { useGetMe } from "@/hooks";
 import { Box, Container, Grid, Link, styled } from "@mui/material";
-import { Link as BrowserLink } from "react-router-dom";
+import { useEffect } from "react";
+import { Link as BrowserLink, useLocation, useNavigate } from "react-router-dom";
 
 const GridWrapper = styled(Grid)(({ theme }) => ({
   background: theme.colors.alpha.white[70],
@@ -21,6 +24,18 @@ interface SignInProps {}
 
 export default function SignIn(props: SignInProps) {
   const {} = props;
+
+  const query = useGetMe();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from || "/home";
+
+  useEffect(() => {
+    if (query.data) navigate(from, { replace: true });
+  }, [query.data]);
+
+  if (query.isLoading) return <SuspenseLoader />;
 
   return (
     <MainContent>
