@@ -1,4 +1,7 @@
-import { SignInUserInput } from "@/components/auth";
+import {
+  IdentEmail,
+  LoginPasswordUserInput,
+} from "@/components/auth/sign-in/LoginPasswordUserForm";
 import { BaseService } from "./base.service";
 import { baseApi } from "./baseApi";
 import { ResourceKey } from "./resourceKey";
@@ -28,7 +31,14 @@ export class AuthService extends BaseService<PermissionFilterInput, Permission> 
     return res.data;
   }
 
-  static async userLogin(user: SignInUserInput) {
+  static async userAuthorize(ident: IdentEmail["ident"]) {
+    const url = "auth/authorize";
+    const res = await baseApi.post<{ email: string }>(url, { ident });
+
+    return res.data;
+  }
+
+  static async userLogin(user: LoginPasswordUserInput) {
     const url = "auth/login";
     const res = await baseApi.post<AccessTokenResponse>(url, user);
 
